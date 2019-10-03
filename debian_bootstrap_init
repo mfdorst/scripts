@@ -2,7 +2,7 @@
 
 # Bootstrap the install script
 apt update && apt upgrade -y
-apt install ruby
+apt install ruby -y
 
 # Run install script
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/linode_scripts/master/debian_init)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/linode-scripts/master/debian_init)"

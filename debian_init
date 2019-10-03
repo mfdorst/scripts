@@ -6,26 +6,34 @@ require 'io/console'
 puts "Hostname: "
 `hostnamectl set-hostname #{gets}`
 
-# Set the timezone
-`dpkg-reconfigure tzdata`
-
 # Install zsh
-apt install zsh -y
+`apt install zsh -y`
 
 ## Create a user with sudo priviledges (default shell: zsh)
-# Create user
 puts "Username: "
-username = gets
-`adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
-# Set password
-password = STDIN.noecho(&:gets).chomp
-`echo -e #{password}\\n#{password} | passwd #{username}`
+username = gets.chomp
 
-# Give user sudo privileges
-`usermod -aG sudo #{username}`
+# Check if user already exists
+`id -u #{username} &> /dev/null`
+unless $?.success?
+  # Create user
+  `adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
+  # Set password
+  puts "Password:"
+  password = STDIN.noecho(&:gets).chomp
+  `echo -e #{password}\\n#{password} | passwd #{username}`
+
+  # Give user sudo privilege
+  puts "Granting sudo privilege to #{username}"
+  `usermod -aG sudo #{username}`
+end
 
 ## Download dotfiles
-`su -u #{username} -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles"`
+puts 'Downloading dotfiles from GitHub...'
+`su -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles" - #{username}`
 
 # Install dotfiles
-`su -u #{username} -c "/home/#{username}/.dotfiles/install"`
+puts 'Installing dotfiles...'
+`su -c "/home/#{username}/.dotfiles/install" - #{username}`
+
+puts "Run `dpkg-reconfigure tzdata` to configure your time zone."
