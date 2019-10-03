@@ -52,6 +52,9 @@ if user_ask :default_confirm, 'Would you like to create a new user?'
   else
     puts "User #{username} already exists. Skipping..."
   end
+  new_user = true
+else
+  new_user = false
 end
 
 if user_ask :default_confirm, 'Would you like to install dotfiles for root?'
@@ -59,15 +62,15 @@ if user_ask :default_confirm, 'Would you like to install dotfiles for root?'
   `git clone https://github.com/mfdorst/dotfiles ~/.dotfiles`
 
   puts 'Installing dotfiles...'
-  `~/.dotfiles/install -y`
+  system('~/.dotfiles/install -y')
 end
 
-if user_ask :default_confirm, "Would you like to install dotfiles for #{username}?"
+if new_user and user_ask :default_confirm, "Would you like to install dotfiles for #{username}?"
   puts 'Downloading dotfiles from GitHub...'
   `su -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles" - #{username}`
 
   puts 'Installing dotfiles...'
-  `su -c "/home/#{username}/.dotfiles/install -y" - #{username}`
+  system("su -c '/home/#{username}/.dotfiles/install -y' - #{username}")
 end
 
 puts 'Run `dpkg-reconfigure tzdata` to configure your time zone.'
