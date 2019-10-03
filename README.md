@@ -1,3 +1,3 @@
 ```sh
-eval "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/linode-scripts/master/debian_bootstrap_init)"
+eval "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/scripts/master/debian_bootstrap_init)"
 ```
