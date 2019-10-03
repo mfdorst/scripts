@@ -36,6 +36,6 @@ puts 'Downloading dotfiles from GitHub...'
 puts 'Installing dotfiles...'
 # Initialize rbenv to ensure the the correct version of ruby runs
 `eval "$(rbenv init -)"`
-`su -c "/home/#{username}/.dotfiles/install" - #{username}`
+`su -c "/home/#{username}/.dotfiles/install -y" - #{username}`
 
 puts "Run `dpkg-reconfigure tzdata` to configure your time zone."
