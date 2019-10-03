@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'io/console'
+
+# Set the hostname
+puts "Hostname: "
+`hostnamectl set-hostname #{gets}`
+
+# Set the timezone
+`dpkg-reconfigure tzdata`
+
+# Install zsh
+apt install zsh -y
+
+## Create a user with sudo priviledges (default shell: zsh)
+# Create user
+puts "Username: "
+username = gets
+`adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
+# Set password
+password = STDIN.noecho(&:gets).chomp
+`echo -e #{password}\\n#{password} | passwd #{username}`
+
+# Give user sudo privileges
+`usermod -aG sudo #{username}`
+
+## Download dotfiles
+`su -u #{username} -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles"`
+
+# Install dotfiles
+`su -u #{username} -c "/home/#{username}/.dotfiles/install"`
