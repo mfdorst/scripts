@@ -25,13 +25,13 @@ if user_ask :default_confirm, 'Would you like to set the hostname?'
 end
 
 # Install zsh and rbenv
-`command -v zsh`
+`sh -c 'command -v zsh'`
 if $?.success?
   install_zsh = user_ask :default_confirm, 'Would you like to install zsh?'
 else
   install_zsh = false
 end
-`command -v rbenv`
+`sh -c 'command -v rbenv'`
 if $?.success?
   install_rbenv = user_ask :default_confirm, 'Would you like to install rbenv?'
 else
