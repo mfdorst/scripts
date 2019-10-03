@@ -6,8 +6,8 @@ require 'io/console'
 puts "Hostname: "
 `hostnamectl set-hostname #{gets}`
 
-# Install zsh
-`apt install zsh -y`
+# Install zsh and rbenv
+`apt install zsh rbenv -y`
 
 ## Create a user with sudo priviledges (default shell: zsh)
 puts "Username: "
@@ -34,6 +34,8 @@ puts 'Downloading dotfiles from GitHub...'
 
 # Install dotfiles
 puts 'Installing dotfiles...'
+# Initialize rbenv to ensure the the correct version of ruby runs
+`eval "$(rbenv init -)"`
 `su -c "/home/#{username}/.dotfiles/install" - #{username}`
 
 puts "Run `dpkg-reconfigure tzdata` to configure your time zone."
