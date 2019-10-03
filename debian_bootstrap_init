@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # Bootstrap the install script
+echo "Updating system..."
 apt update && apt upgrade -y
+echo "Installing ruby..."
 apt install ruby -y
 
 # Run install script
+echo "Running install script..."
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/scripts/master/debian_init)"

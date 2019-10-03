@@ -2,40 +2,58 @@
 
 require 'io/console'
 
+require_relative 'helper/user_ask'
+
 # Set the hostname
-puts "Hostname: "
-`hostnamectl set-hostname #{gets}`
-
-# Install zsh and rbenv
-`apt install zsh rbenv -y`
-
-## Create a user with sudo priviledges (default shell: zsh)
-puts "Username: "
-username = gets.chomp
-
-# Check if user already exists
-`id -u #{username} &> /dev/null`
-unless $?.success?
-  # Create user
-  `adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
-  # Set password
-  puts "Password:"
-  password = STDIN.noecho(&:gets).chomp
-  `echo -e #{password}\\n#{password} | passwd #{username}`
-
-  # Give user sudo privilege
-  puts "Granting sudo privilege to #{username}"
-  `usermod -aG sudo #{username}`
+if user_ask :default_confirm, 'Would you like to set the hostname?'
+  puts "Hostname: "
+  `hostnamectl set-hostname #{gets}`
 end
 
-## Download dotfiles
-puts 'Downloading dotfiles from GitHub...'
-`su -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles" - #{username}`
+# Install zsh and rbenv
+install_zsh = user_ask :default_confirm, 'Would you like to install zsh?'
+install_rbenv = user_ask :default_confirm, 'Would you like to install rbenv?'
 
-# Install dotfiles
-puts 'Installing dotfiles...'
-# Initialize rbenv to ensure the the correct version of ruby runs
-`eval "$(rbenv init -)"`
-`su -c "/home/#{username}/.dotfiles/install -y" - #{username}`
+`apt install zsh -y` if install_zsh
+`apt install rbenv -y` if install_rbenv
 
-puts "Run `dpkg-reconfigure tzdata` to configure your time zone."
+## Create a user with sudo priviledges (default shell: zsh)
+if user_ask :default_confirm, 'Would you like to create a new user?'
+  puts "Username: "
+  username = gets.chomp
+
+  # Check if user already exists
+  `id -u #{username} &> /dev/null`
+  unless $?.success?
+    # Create user
+    `adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
+    # Set password
+    puts "Password:"
+    password = STDIN.noecho(&:gets).chomp
+    `echo -e #{password}\\n#{password} | passwd #{username}`
+
+    # Give user sudo privilege
+    puts "Granting sudo privilege to #{username}"
+    `usermod -aG sudo #{username}`
+  else
+    puts "User #{username} already exists. Skipping..."
+  end
+end
+
+if user_ask :default_confirm, 'Would you like to install dotfiles for root?'
+  puts 'Donwloading dotfiles from GitHub...'
+  `git clone https://github.com/mfdorst/dotfiles ~/.dotfiles`
+
+  puts 'Installing dotfiles...'
+  `~/.dotfiles/install -y`
+end
+
+if user_ask :default_confirm, "Would you like to install dotfiles for #{username}?"
+  puts 'Downloading dotfiles from GitHub...'
+  `su -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles" - #{username}`
+
+  puts 'Installing dotfiles...'
+  `su -c "/home/#{username}/.dotfiles/install -y" - #{username}`
+end
+
+puts 'Run `dpkg-reconfigure tzdata` to configure your time zone.'
