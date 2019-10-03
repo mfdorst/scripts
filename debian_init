@@ -21,15 +21,25 @@ end
 # Set the hostname
 if user_ask :default_confirm, 'Would you like to set the hostname?'
   puts "Hostname: "
-  `hostnamectl set-hostname #{gets}`
+  system('hostnamectl set-hostname #{gets}')
 end
 
 # Install zsh and rbenv
-install_zsh = user_ask :default_confirm, 'Would you like to install zsh?'
-install_rbenv = user_ask :default_confirm, 'Would you like to install rbenv?'
+`command -v zsh`
+if $?.success?
+  install_zsh = user_ask :default_confirm, 'Would you like to install zsh?'
+else
+  install_zsh = false
+end
+`command -v rbenv`
+if $?.success?
+  install_rbenv = user_ask :default_confirm, 'Would you like to install rbenv?'
+else
+  install_rbenv = false
+end
 
-`apt install zsh -y` if install_zsh
-`apt install rbenv -y` if install_rbenv
+system('apt install zsh -y') if install_zsh
+system('apt install rbenv -y') if install_rbenv
 
 ## Create a user with sudo priviledges (default shell: zsh)
 if user_ask :default_confirm, 'Would you like to create a new user?'
@@ -37,18 +47,18 @@ if user_ask :default_confirm, 'Would you like to create a new user?'
   username = gets.chomp
 
   # Check if user already exists
-  `id -u #{username} &> /dev/null`
+  `id -u #{username}`
   unless $?.success?
     # Create user
-    `adduser --gecos "" --disabled-password --shell /bin/zsh #{username}`
+    system("adduser --gecos '' --disabled-password --shell /bin/zsh #{username}")
     # Set password
     puts "Password:"
     password = STDIN.noecho(&:gets).chomp
-    `echo -e #{password}\\n#{password} | passwd #{username}`
+    system("echo -e #{password}\\n#{password} | passwd #{username}")
 
     # Give user sudo privilege
     puts "Granting sudo privilege to #{username}"
-    `usermod -aG sudo #{username}`
+    system("usermod -aG sudo #{username}")
   else
     puts "User #{username} already exists. Skipping..."
   end
@@ -59,7 +69,7 @@ end
 
 if user_ask :default_confirm, 'Would you like to install dotfiles for root?'
   puts 'Donwloading dotfiles from GitHub...'
-  `git clone https://github.com/mfdorst/dotfiles ~/.dotfiles`
+  system('git clone https://github.com/mfdorst/dotfiles ~/.dotfiles')
 
   puts 'Installing dotfiles...'
   system('~/.dotfiles/install -y')
@@ -67,7 +77,7 @@ end
 
 if new_user and user_ask :default_confirm, "Would you like to install dotfiles for #{username}?"
   puts 'Downloading dotfiles from GitHub...'
-  `su -c "git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles" - #{username}`
+  system("su -c 'git clone https://github.com/mfdorst/dotfiles /home/#{username}/.dotfiles' - #{username}")
 
   puts 'Installing dotfiles...'
   system("su -c '/home/#{username}/.dotfiles/install -y' - #{username}")

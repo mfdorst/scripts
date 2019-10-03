@@ -3,8 +3,10 @@
 # Bootstrap the install script
 echo "Updating system..."
 apt update && apt upgrade -y
-echo "Installing ruby..."
-apt install ruby -y
+if [ command -v ruby &> /dev/null ]; then
+    echo "Installing ruby..."
+    apt install ruby -y
+fi
 
 # Run install script
 echo "Running install script..."
