@@ -7,10 +7,10 @@ Get up and running quickly with debian.
 eval "$(curl -fsSL https://raw.githubusercontent.com/mfdorst/scripts/master/debian-bootstrap-init)"
 ```
 
-### debian-bootstrap-init
+### `debian-bootstrap-init`
 Ensures that ruby is installed on the system and invokes `debian-init`.
 
-### debian-init
+### `debian-init`
 Prompts for and performs common tasks for new systems such as
 
 + setting the hostname
@@ -21,9 +21,8 @@ Prompts for and performs common tasks for new systems such as
 
 ## Pyenv management sripts
 
-### latest-python-version
+### `latest-python-version`
 Prints the latest mainline Python version offered by `pyenv`.
 
-### install-python-latest
+### `install-python-latest`
 Installs the latest avaliable mainline Python version offered by `pyenv`.
-
