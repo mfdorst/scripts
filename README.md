@@ -13,10 +13,10 @@ Ensures that ruby is installed on the system and invokes `debian-init`.
 ### `debian-init`
 Prompts for and performs common tasks for new systems such as
 
-+ setting the hostname
-+ installing common packages I use
-+ creating a user
-+ installing my dotfiles
++ Setting the hostname
++ Installing common packages I use
++ Creating a user
++ Installing my dotfiles
 
 
 ## Pyenv management sripts
