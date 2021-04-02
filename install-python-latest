@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! command -v pyenv &> /dev/null; then
+    echo 'This script relies on pyenv to work.'
+    echo "Please install pyenv: 'curl https://pyenv.run | bash'."
+    exit 1
+fi
+
+pyenv install $($HOME/bin/latest-python-version)
