@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# eDP-1 is the laptop screen
+# HDMI-1 is the connected display
+
+# Set the external monitor left of the laptop display.
+# Doing this prevents xrandr from mirroring the displays,
+# which screws up the resolution.
+xrandr --output HDMI-1 --left-of eDP-1
+
+# Turn off the laptop display
+xrandr --output eDP-1 --off
+

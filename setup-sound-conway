@@ -1,0 +1,4 @@
+#!/bin/bash
+
+amixer -c 1 sset Headphone playback 100% unmute
+
