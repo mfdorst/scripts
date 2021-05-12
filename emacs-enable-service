@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+from subprocess import run
+
+def main():
+    commands = [
+        'systemctl enable --user emacs',
+        'systemctl start --user emacs'
+    ]
+
+    for cmd in commands:
+        print(f'[Running command]: {cmd}')
+        run(cmd, shell=True)
+
+if __name__ == '__main__':
+    main()
