@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Add the current wallpaper to favorites
+
+fav=$(tail -n 1 $HOME/.local/share/cucumberwm/wallpaper.log)
+
+cp $fav $HOME/Pictures/favorite_wallpapers
+
