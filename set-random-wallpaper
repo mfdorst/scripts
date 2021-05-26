@@ -1,0 +1,10 @@
+#!/bin/bash
+
+[ -x "$(command -v feh)" ] || { echo "feh is not installed"; exit 1; }
+
+wallpaper_dir="$HOME/Pictures/wallpapers"
+wallpaper_num=$(shuf -i 1-305 -n 1)
+wallpaper_path=$(printf "$wallpaper_dir/%.4d.jpg" $wallpaper_num)
+
+feh --bg-scale "$wallpaper_path"
+
