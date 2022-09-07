@@ -1,0 +1,16 @@
+#!/usr/bin/env fish
+
+echo "> pushd $HOME/code/fluvio"
+pushd $HOME/code/fluvio
+set -l fish_trace 1
+
+$HOME/code/fluvio/target/debug/fluvio cluster delete
+and $HOME/code/fluvio/target/debug/fluvio cluster start --develop $argv[1..-1]
+
+set -l exit_code $status
+set -e fish_trace
+echo "> popd"
+popd
+
+exit $exit_code
+

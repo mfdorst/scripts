@@ -1,0 +1,15 @@
+#!/usr/bin/env fish
+
+echo "> pushd $HOME/code/fluvio"
+pushd $HOME/code/fluvio
+set -l fish_trace 1
+
+make build-cli build_k8_image
+
+set -l exit_code $status
+set -e fish_trace
+echo "> popd"
+popd
+
+exit $exit_code
+
