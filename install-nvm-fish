@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+if not type -q fisher &> /dev/null
+    echo "Installing fisher"
+    install-fisher
+    source ~/.config/fish/config.fish
+end
+
+fisher install jorgebucaran/nvm.fish
+source ~/.config/fish/config.fish
