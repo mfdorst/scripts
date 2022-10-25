@@ -1,0 +1,9 @@
+#!/bin/bash
+
+tmpdir=$(mktemp -d)
+cd $tmpdir
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/FiraCode.zip
+unzip FiraCode.zip
+mkdir ~/.fonts
+unzip FiraCode.zip -d ~/.fonts
+fc-cache -fv
