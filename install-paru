@@ -1,5 +1,10 @@
 #!/bin/bash
 
-git clone https://aur.archlinux.org/paru-bin.git
-cd paru-bin
+TMP_DIR=$(mktemp -d)
+REPO_DIR="$TMP_DIR/paru-bin"
+
+git clone https://aur.archlinux.org/paru-bin.git "$REPO_DIR"
+pushd "$REPO_DIR"
+echo "Building paru"
 makepkg -si
+popd
