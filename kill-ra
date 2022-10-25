@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pkill cargo
+pkill rust-analyzer
