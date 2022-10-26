@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Remove all but the newest garbage collections roots
+sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
+# Reload your current configuration and update grub
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+# Garbage collection
+nix-store --gc
