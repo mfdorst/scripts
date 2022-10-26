@@ -1,4 +1,4 @@
 #!/bin/bash
 
-feh --bg-scale $HOME/Pictures/wallpaper/gruvbox-dark.png
+feh --bg-scale $HOME/wallpaper/gruvbox-arch.webp
 
