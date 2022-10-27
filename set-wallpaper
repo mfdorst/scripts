@@ -1,4 +1,4 @@
 #!/bin/bash
 
-feh --bg-scale $HOME/wallpaper/gruvbox-arch.webp
+feh --bg-scale $HOME/wallpaper/lofi-cafe.jpg
 
