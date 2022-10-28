@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: wp-rand-hypr <dir> <monitor>"
+    echo "e.g.: wp-rand-hypr ~/wallpaper/lo-fi eDP-1"
+    exit 1
+fi
+
+if ! command -v hyprctl &> /dev/null; then
+    echo "hyprland is not installed."
+    exit 1
+fi
+if ! command -v hyprpaper &> /dev/null; then
+    echo "hyprpaper is not installed."
+    exit 1
+fi
+
+WP_DIR="$1"
+MONITOR="$2"
+WP_NAME=$(ls "$WP_DIR" | sort -R | tail -1)
+WP_PATH="$WP_DIR/$WP_NAME"
+
+hyprctl hyprpaper preload "$WP_PATH"
+hyprctl hyprpaper wallpaper "$MONITOR","$WP_PATH"
