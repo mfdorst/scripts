@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: wp-hypr-rand <dir> <monitor>"
+    echo "e.g.: wp-hypr-rand ~/wallpaper/lo-fi eDP-1"
+    exit 1
+fi
+
+WP_DIR="$1"
+MONITOR="$2"
+WP_NAME=$(ls "$WP_DIR" | sort -R | tail -1)
+WP_PATH="$WP_DIR/$WP_NAME"
+
+wp-hypr "$WP_PATH" "$MONITOR"
