@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if command -v nala &> /dev/null; then
+    APT=nala
+else
+    APT=apt
+fi
+
+echo "Installing dependencies..."
+
+sudo $APT install ninja-build gettext git libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen || exit 1
+
+mkdir -p $HOME/pkg
+
+pushd $HOME/pkg
+
+git clone git@github.com:neovim/neovim || exit 1
+
+pushd neovim
+
+make CMAKE_BUILD_TYPE=RelWithDebInfo || exit 1
+sudo make install || exit 1
+
+popd
+popd
+
+$HOME/scripts/install-packer || exit 1
+
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+echo "NOTE: Errors above may not indicate failure."
