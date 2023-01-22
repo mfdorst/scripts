@@ -25,7 +25,6 @@ popd
 popd
 
 $HOME/scripts/install-packer || exit 1
-
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+$HOME/scripts/packer-sync
 
 echo "NOTE: Errors above may not indicate failure."

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Taken from `https://github.com/wbthomason/packer.nvim#bootstrapping`
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
