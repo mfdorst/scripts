@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+echo "Installing dependencies..."
+
+sudo pacman -S base-devel cmake unzip ninja tree-sitter curl || exit 1
+
+mkdir -p $HOME/pkg
+
+pushd $HOME/pkg
+
+git clone git@github.com:neovim/neovim || exit 1
+
+pushd neovim
+
+make CMAKE_BUILD_TYPE=RelWithDebInfo || exit 1
+sudo make install || exit 1
+
+popd
+popd
+
+$HOME/scripts/install-packer || exit 1
+$HOME/scripts/packer-sync
+
+echo "NOTE: Errors above may not indicate failure."
