@@ -1,4 +1,0 @@
-#!/bin/bash
-
-feh --bg-scale $HOME/wallpaper/lo-fi/lofi-cafe.jpg
-
