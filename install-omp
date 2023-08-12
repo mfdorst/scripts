@@ -10,4 +10,4 @@ unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
 chmod u+rw ~/.poshthemes/*.omp.*
 rm ~/.poshthemes/themes.zip
 
-echo 'For the best experience, use Nerd Fonts. For FiraCode on Archlinux: `paru -S nerd-fonts-fira-code`'
+echo 'For the best experience, use Nerd Fonts. For FiraCode on Archlinux: `sudo pacman -S ttf-firacode-nerd`'
