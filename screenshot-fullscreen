@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+path="$HOME/screenshots/$(date +%y%m%d-%H%M%S).jpg"
+
+grim -t jpeg "$path"
