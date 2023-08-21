@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+light -Ss "sysfs/leds/apple::kbd_backlight" 7
