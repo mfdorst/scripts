@@ -18,7 +18,7 @@ sudo make install || exit 1
 popd
 popd
 
-$HOME/scripts/install-packer || exit 1
-$HOME/scripts/packer-sync
-
-echo "NOTE: Errors above may not indicate failure."
+# $HOME/scripts/install-packer || exit 1
+# $HOME/scripts/packer-sync
+#
+# echo "NOTE: Errors above may not indicate failure."
