@@ -14,7 +14,7 @@ mkdir -p $HOME/pkg
 
 pushd $HOME/pkg
 
-git clone git@github.com:neovim/neovim || exit 1
+git clone https://github.com/neovim/neovim || exit 1
 
 pushd neovim
 
@@ -24,7 +24,7 @@ sudo make install || exit 1
 popd
 popd
 
-$HOME/scripts/install-packer || exit 1
-$HOME/scripts/packer-sync
-
-echo "NOTE: Errors above may not indicate failure."
+# $HOME/scripts/install-packer || exit 1
+# $HOME/scripts/packer-sync
+#
+# echo "NOTE: Errors above may not indicate failure."
