@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+INSTALL_DIR="$HOME/.local/bin"
+
+mkdir -p $INSTALL_DIR
+pushd $INSTALL_DIR
+wget -O tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64
+chmod +x tailwindcss
+popd
+
+echo "tailwindcss installed to $INSTALL_DIR"
