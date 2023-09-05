@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if command -v nvim &> /dev/null; then
+    editor=nvim
+elif command -v vim &> /dev/null; then
+    editor=vim
+else
+    echo "Neither vim nor neovim are installed."
+    exit 1
+fi
+
+$editor ~/.config/nvim
