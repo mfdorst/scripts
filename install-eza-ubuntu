@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo tee /etc/apt/trusted.gpg.d/gierens.asc | exit 1
+echo "deb http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list | exit 1
+
+if command -v nala &>/dev/null; then
+    apt=nala
+else
+    apt=apt
+fi
+sudo $apt update | exit 1
+sudo $apt install -y eza
