@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo tee /etc/apt/trusted.gpg.d/gierens.asc || exit 1
-echo "deb http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list || exit 1
+echo "Downloading public key to /etc/apt/trusted.gpg.d/gierens.asc"
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo tee /etc/apt/trusted.gpg.d/gierens.asc >/dev/null || exit 1
+echo "Creating /etc/apt/sources.list.d/gierens.list"
+echo "deb http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list >/dev/null || exit 1
 
 if command -v nala &>/dev/null; then
     apt=nala
