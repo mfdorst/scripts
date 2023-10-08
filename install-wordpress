@@ -23,11 +23,8 @@ fi
 archive_name="wordpress-`date +%y-%m-%d`.tar.gz"
 directory_name="$1"
 
-mkdir -p src || exit 1
-pushd src
 wget http://wordpress.org/latest.tar.gz -O $archive_name || exit 1
 chown -R "www-data:www-data" $archive_name || exit 1
-popd
-tar -xvf "src/$archive_name" || exit 1
+tar -xvf $archive_name || exit 1
 mv wordpress "$directory_name" || exit 1
 chown -R "www-data:www-data" "$directory_name"
