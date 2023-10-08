@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if ! command -v wget &>/dev/null; then
+    echo "wget is not installed. Aborting."
+    exit 1
+fi
+
+wget http://wordpress.org/latest.tar.gz || exit 1
+tar -xvf latest.tar.gz || exit 1
+mv latest.tar.gz wordpress-`date "+%y-%m-%d"`.tar.gz
