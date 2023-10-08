@@ -8,3 +8,4 @@ fi
 wget http://wordpress.org/latest.tar.gz || exit 1
 tar -xvf latest.tar.gz || exit 1
 mv latest.tar.gz wordpress-`date "+%y-%m-%d"`.tar.gz
+chown -R "www-data:www-data" wordpress*
