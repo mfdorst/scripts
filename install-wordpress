@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]; then
+    echo "Usage: install-wordpress <directory-name>"
+    exit 1
+fi
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "This script must be run as root. Aborting."
+    exit 1
+fi
+
+if ! command -v wget &>/dev/null; then
+    echo "wget is not installed. Aborting."
+    exit 1
+fi
+
+if ! command -v tar &>/dev/null; then
+    echo "tar is not installed. Aborting."
+    exit 1
+fi
+
+archive_name="wordpress-`date +%y-%m-%d`.tar.gz"
+directory_name="$1"
+
+mkdir -p src || exit 1
+pushd src
+wget http://wordpress.org/latest.tar.gz -O $archive_name || exit 1
+chown -R "www-data:www-data" $archive_name || exit 1
+popd
+tar -xvf "src/$archive_name" || exit 1
+mv wordpress "$directory_name" || exit 1
+chown -R "www-data:www-data" "$directory_name"
