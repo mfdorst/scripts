@@ -3,10 +3,12 @@
 places=(".cfg" "scripts" "knowledge-base" ".password-store")
 
 for place in "${places[@]}"; do
-    pushd "$HOME/$place" > /dev/null
-    echo "Updating remote for ~/$place"
-    git remote update
-    popd > /dev/null
+    if [ -d "$HOME/$place" ]; then
+        pushd "$HOME/$place" > /dev/null
+        echo "Updating remote for ~/$place"
+        git remote update
+        popd > /dev/null
+    fi
 done
 
 echo
