@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+places=(".cfg" "scripts" "knowledge-base" ".password-store")
+
+for place in "${places[@]}"; do
+    if [ -d "$HOME/$place" ]; then
+        pushd "$HOME/$place" > /dev/null
+        echo "~/$place"
+        git status -su;
+        popd > /dev/null
+    fi
+done
