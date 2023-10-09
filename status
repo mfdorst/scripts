@@ -9,6 +9,7 @@ for place in "${places[@]}"; do
             echo "Uncommitted changes in ~/$place:"
             git status -s
         fi
+        git remote update
         if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
             branch=$(git rev-parse --abbrev-ref HEAD)
             upstream=$(git rev-parse --abbrev-ref @{u})
