@@ -9,6 +9,8 @@ for place in "${places[@]}"; do
     popd > /dev/null
 done
 
+echo
+
 for place in "${places[@]}"; do
     if [ -d "$HOME/$place" ]; then
         pushd "$HOME/$place" > /dev/null
