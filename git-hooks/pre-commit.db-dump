@@ -8,3 +8,4 @@
 # anyway, run `git commit --no-verify`.
 
 mysqldump -u root db_name -r db_dump.sql
+git add db_dump.sql
