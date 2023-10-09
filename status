@@ -5,8 +5,15 @@ places=(".cfg" "scripts" "knowledge-base" ".password-store")
 for place in "${places[@]}"; do
     if [ -d "$HOME/$place" ]; then
         pushd "$HOME/$place" > /dev/null
-        echo "~/$place"
-        git status -su;
+        if [[ ! -z "$(git status --porcelain)" ]]; then
+            echo "Uncommitted changes in ~/$place:"
+            git status -s
+        fi
+        if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
+            branch=$(git rev-parse --abbrev-ref HEAD)
+            upstream=$(git rev-parse --abbrev-ref @{u})
+            echo "~/$place: $branch is out of sync with $upstream."
+        fi
         popd > /dev/null
     fi
 done
