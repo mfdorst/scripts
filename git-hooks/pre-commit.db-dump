@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# This hook will dump a mysql database automatically before every commit.
+# To use this hook, change `db_name` and `db_dump` to the desired values, rename this script to
+# `pre-commit`, and put it in the `.git/hooks` folder.
+
+# If the command fails, it will prevent you from committing. To ignore the failure and commit
+# anyway, run `git commit --no-verify`.
+
+mysqldump -u root db_name -r db_dump.sql
