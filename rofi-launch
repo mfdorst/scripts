@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -e "$HOME/.config/hidpi" ]; then
-    rofi -show run -theme gruvbox-dark-hard -dpi 196
-else
-    rofi -show run -theme gruvbox-dark-hard
-fi
-

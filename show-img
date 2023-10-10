@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-feh --auto-zoom --scale-down "$1"
