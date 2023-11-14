@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TMP_DIR=$(mktemp -d)
 REPO_DIR="$TMP_DIR/paru-bin"
