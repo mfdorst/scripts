@@ -21,10 +21,14 @@ if ! [ -e "$STYLESHEET" ]; then
     exit 1
 fi
 
+# If this script exits, kill waybar on the way out
 trap "killall waybar" EXIT
+trap "killall .waybar-wrapped" EXIT
 
 while true; do
     waybar &
+    # Kill and restart waybar if its config changes
     inotifywait -e create,modify $CONFIG_FILES
     killall waybar
+    killall .waybar-wrapped
 done
