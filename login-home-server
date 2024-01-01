@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ssh me@10.0.0.2
