@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if ! command -v fzf &> /dev/null; then
+    echo "fzf is not installed."
+    exit 1
+fi
+
 if command -v nvim &> /dev/null; then
     editor=nvim
 elif command -v vim &> /dev/null; then
@@ -11,4 +16,4 @@ else
     exit 1
 fi
 
-$editor ~/.config/nvim
+$editor $(fzf)

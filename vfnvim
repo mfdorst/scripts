@@ -11,4 +11,5 @@ else
     exit 1
 fi
 
-$editor ~/.config/nvim
+cd ~/.config/nvim
+$editor $(fzf)
