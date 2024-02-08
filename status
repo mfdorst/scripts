@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-places=(".cfg" "scripts" "knowledge-base" ".password-store")
+places=(".cfg" ".nix" "scripts" "knowledge-base" ".password-store")
 
 for place in "${places[@]}"; do
     if [ -d "$HOME/$place" ]; then
